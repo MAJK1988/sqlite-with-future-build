@@ -157,15 +157,17 @@ class _StateAddUserDatabase extends State<AddUserDatabase>{
                     age: int.parse(_myControllerAge.value.text),
                      phoneNumber: _myControllerPhoneNumber.value.text);
                   if(widget.user.id==-1){
-                    await DBProvider.db.newUser(user);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('User added to database')),
-                  );
+                    await DBProvider.db.newUser(user).then((value){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('User added to database')),);
+                    });
+                  
                   }else{user.id=widget.user.id;
                     
-                    await DBProvider.db.updateUser(user);
-                  ScaffoldMessenger.of(context).showSnackBar(
+                    await DBProvider.db.updateUser(user).then((value){ 
+                      ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('User Updated')));
+                    });
                   }
 
                 }
